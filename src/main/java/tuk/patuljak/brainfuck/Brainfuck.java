@@ -30,24 +30,21 @@ public class Brainfuck {
                                 ? --ptr
                                 : (currentInstruction == 62)
                                     ? ++ptr
-                                    : helper;
+                                    :(currentInstruction == 93)
+                                        ? (memory[ptr] != 0)
+                                            ? instructionIndex = loopStarts[lastLoopStart]
+                                            : --lastLoopStart
+                                        : (currentInstruction == 91)
+                                            ? (memory[ptr] != 0)
+                                                ? loopStarts[++lastLoopStart] = instructionIndex
+                                                : ++skippedLoops
+                                            : helper;
 
                     System.out.print(
                         (currentInstruction == 46)
                             ? (char) memory[ptr]
                             : "");
 
-                    helper = (currentInstruction == 93)
-                        ? (memory[ptr] != 0)
-                            ? instructionIndex = loopStarts[lastLoopStart]
-                            : --lastLoopStart
-                        : helper;
-
-                    helper = (currentInstruction == 91)
-                        ? (memory[ptr] != 0)
-                            ? loopStarts[++lastLoopStart] = instructionIndex
-                            : ++skippedLoops
-                        : helper;
                 }
             }
         }
