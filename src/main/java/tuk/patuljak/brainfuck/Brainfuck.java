@@ -24,16 +24,15 @@ public class Brainfuck {
                         if(memory[ptr] != 0) {
                             loopStarts[++lastLoopStart] = instructionIndex;
                         } else {
-                            openBrackets = 1;
-
-                            while(openBrackets > 0) {
-                                currentInstruction = instructions[++instructionIndex];
-
+                            for(openBrackets = 1;
+                                openBrackets > 0;
                                 openBrackets += (currentInstruction == 91)
                                     ? 1
                                     : (currentInstruction == 93)
                                         ? -1
-                                        : 0;
+                                        : 0
+                            ) {
+                                currentInstruction = instructions[++instructionIndex];
                             }
 
                             ++instructionIndex;
