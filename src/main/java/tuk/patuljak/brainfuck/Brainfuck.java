@@ -14,26 +14,22 @@ public class Brainfuck {
                 var currentInstruction = instructions[instructionIndex++];
 
                 switch (currentInstruction) {
-                    case '+' -> ++memory[ptr];
-                    case '-' -> --memory[ptr];
-                    case '>' -> ++ptr;
-                    case '<' -> --ptr;
-                    case '.' -> System.out.print((char) memory[ptr]);
-                    case '[' -> {
-                        // Check loop condition
+                    case 43 -> ++memory[ptr];
+                    case 45 -> --memory[ptr];
+                    case 62 -> ++ptr;
+                    case 60 -> --ptr;
+                    case 46 -> System.out.print((char) memory[ptr]);
+                    case 91 -> {
                         if(memory[ptr] != 0) {
                             loopStarts[++lastLoopStart] = instructionIndex;
                         } else {
-                            // Skip loop
                             instructionIndex = closingBracketIndexOf(instructions, instructionIndex) + 1;
                         }
                     }
-                    case ']' -> {
-                        // Check loop condition
+                    case 93 -> {
                         if(memory[ptr] != 0) {
                             instructionIndex = loopStarts[lastLoopStart];
                         } else {
-                            // Leave loop
                             --lastLoopStart;
                         }
                     }
@@ -53,8 +49,8 @@ public class Brainfuck {
             var currentCharacter = text[currentIndex];
 
             switch (currentCharacter) {
-                case '[' -> ++openBrackets;
-                case ']' -> --openBrackets;
+                case 91 -> ++openBrackets;
+                case 93 -> --openBrackets;
             }
         }
 
