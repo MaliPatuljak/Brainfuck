@@ -23,7 +23,18 @@ public class Brainfuck {
                         if(memory[ptr] != 0) {
                             loopStarts[++lastLoopStart] = instructionIndex;
                         } else {
-                            instructionIndex = closingBracketIndexOf(instructions, instructionIndex) + 1;
+                            var openBrackets = 1;
+
+                            while(openBrackets > 0 && ++instructionIndex < instructions.length) {
+                                currentInstruction = instructions[instructionIndex];
+
+                                switch (currentInstruction) {
+                                    case 91 -> ++openBrackets;
+                                    case 93 -> --openBrackets;
+                                }
+                            }
+
+                            ++instructionIndex;
                         }
                     }
                     case 93 -> {
@@ -36,24 +47,5 @@ public class Brainfuck {
                 }
             }
         }
-    }
-
-    static int closingBracketIndexOf(
-        final char[] text,
-        final int openBracketIndex
-    ) {
-        var openBrackets = 1;
-        var currentIndex = openBracketIndex;
-
-        while(openBrackets > 0 && ++currentIndex < text.length) {
-            var currentCharacter = text[currentIndex];
-
-            switch (currentCharacter) {
-                case 91 -> ++openBrackets;
-                case 93 -> --openBrackets;
-            }
-        }
-
-        return currentIndex;
     }
 }
