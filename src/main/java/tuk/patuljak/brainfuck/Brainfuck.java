@@ -4,6 +4,7 @@ public class Brainfuck {
     static void main(final String[] programs) {
         for(var program : programs) {
             int ptr = 0,
+                openBrackets,
                 lastLoopStart = 0,
                 instructionIndex = 0;
             var memory = new int[100];
@@ -23,15 +24,16 @@ public class Brainfuck {
                         if(memory[ptr] != 0) {
                             loopStarts[++lastLoopStart] = instructionIndex;
                         } else {
-                            var openBrackets = 1;
+                            openBrackets = 1;
 
-                            while(openBrackets > 0 && ++instructionIndex < instructions.length) {
-                                currentInstruction = instructions[instructionIndex];
+                            while(openBrackets > 0) {
+                                currentInstruction = instructions[++instructionIndex];
 
-                                switch (currentInstruction) {
-                                    case 91 -> ++openBrackets;
-                                    case 93 -> --openBrackets;
-                                }
+                                openBrackets += (currentInstruction == 91)
+                                    ? 1
+                                    : (currentInstruction == 93)
+                                        ? -1
+                                        : 0;
                             }
 
                             ++instructionIndex;
