@@ -15,14 +15,13 @@ public class Brainfuck {
             while(instructionIndex < instructions.length) {
                 var currentInstruction = instructions[instructionIndex++];
 
-                if(skippedLoops > 0)
-                    skippedLoops += (currentInstruction == 91)
+                helper = (skippedLoops > 0)
+                    ? skippedLoops += (currentInstruction == 91)
                         ? 1
                         : (currentInstruction == 93)
-                        ? -1
-                        : 0;
-                else {
-                    helper = (currentInstruction == 43)
+                            ? -1
+                            : 0
+                    : (currentInstruction == 43)
                         ? ++memory[ptr]
                         : (currentInstruction == 45)
                             ? --memory[ptr]
@@ -40,12 +39,10 @@ public class Brainfuck {
                                                 : ++skippedLoops
                                             : helper;
 
-                    System.out.print(
-                        (currentInstruction == 46)
-                            ? (char) memory[ptr]
-                            : "");
-
-                }
+                System.out.print(
+                    (currentInstruction == 46)
+                        ? (char) memory[ptr]
+                        : "");
             }
         }
     }
