@@ -4,6 +4,7 @@ public class Brainfuck {
     static void main(final String[] programs) {
         for(var program : programs) {
             int ptr = 0,
+                helper = 0,
                 skippedLoops = 0,
                 lastLoopStart = 0,
                 instructionIndex = 0;
@@ -21,34 +22,30 @@ public class Brainfuck {
                         ? -1
                         : 0;
                 else {
-                    if(currentInstruction == 43)
-                        ++memory[ptr];
-
-                    if(currentInstruction == 45)
-                        --memory[ptr];
-
-                    if(currentInstruction == 60)
-                        --ptr;
-
-                    if(currentInstruction == 62)
-                        ++ptr;
+                    helper = (currentInstruction == 43)
+                        ? ++memory[ptr]
+                        : (currentInstruction == 45)
+                            ? --memory[ptr]
+                            : (currentInstruction == 60)
+                                ? --ptr
+                                : (currentInstruction == 62)
+                                    ? ++ptr
+                                    : helper;
 
                     if(currentInstruction == 46)
                         System.out.print((char) memory[ptr]);
 
-                    if(currentInstruction == 93)
-                        if(memory[ptr] != 0) {
-                            instructionIndex = loopStarts[lastLoopStart];
-                        } else {
-                            --lastLoopStart;
-                        }
+                    helper = (currentInstruction == 93)
+                        ? (memory[ptr] != 0)
+                            ? instructionIndex = loopStarts[lastLoopStart]
+                            : --lastLoopStart
+                        : helper;
 
-                    if(currentInstruction == 91)
-                        if(memory[ptr] != 0) {
-                            loopStarts[++lastLoopStart] = instructionIndex;
-                        } else {
-                            ++skippedLoops;
-                        }
+                    helper = (currentInstruction == 91)
+                        ? (memory[ptr] != 0)
+                            ? loopStarts[++lastLoopStart] = instructionIndex
+                            : ++skippedLoops
+                        : helper;
                 }
             }
         }
