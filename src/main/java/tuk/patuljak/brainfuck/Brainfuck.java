@@ -42,7 +42,10 @@ public class Brainfuck {
         }
     }
 
-    static int closingBracketIndexOf(char[] text, int openBracketIndex) {
+    static int closingBracketIndexOf(
+        final char[] text,
+        final int openBracketIndex
+    ) {
         var openBrackets = 1;
         var currentIndex = openBracketIndex;
 

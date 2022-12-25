@@ -51,7 +51,8 @@ public enum Expectation {
     );
 
     public final String inputCode,
-        expectedOutput;
+                        expectedOutput;
+
     Expectation(
         final String inputCode,
         final String expectedOutput
