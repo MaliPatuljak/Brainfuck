@@ -7,17 +7,18 @@ public class Brainfuck {
                 helper = 0,
                 skippedLoops = 0,
                 lastLoopStart = 0,
+                ninetyOne = 91,
                 instructionIndex = 0;
-            var memory = new int[100];
+            var memory = new int[ninetyOne];
             var loopStarts = memory.clone();
 
             for(var instructions = program.toCharArray(); instructionIndex < instructions.length;) {
                 var currentInstruction = instructions[instructionIndex++];
 
                 helper = (skippedLoops > 0)
-                    ? skippedLoops += (currentInstruction == 91)
+                    ? skippedLoops += (currentInstruction == ninetyOne)
                         ? 1
-                        : (currentInstruction == 93)
+                        : (currentInstruction > ninetyOne)
                             ? -1
                             : 0
                     : (currentInstruction == 43)
@@ -28,11 +29,11 @@ public class Brainfuck {
                                 ? --ptr
                                 : (currentInstruction == 62)
                                     ? ++ptr
-                                    :(currentInstruction == 93)
+                                    :(currentInstruction > ninetyOne)
                                         ? (memory[ptr] != 0)
                                             ? instructionIndex = loopStarts[lastLoopStart]
                                             : --lastLoopStart
-                                        : (currentInstruction == 91)
+                                        : (currentInstruction == ninetyOne)
                                             ? (memory[ptr] != 0)
                                                 ? loopStarts[++lastLoopStart] = instructionIndex
                                                 : ++skippedLoops
