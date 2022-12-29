@@ -1,18 +1,19 @@
 package tuk.patuljak.brainfuck;
 
 public class Brainfuck {
-    static void main(final String[] programs) {
+    static void main(String[] programs) {
         for(var program : programs) {
-            int ptr = 0,
+            char ptr = 0,
                 helper = 0,
                 skippedLoops = 0,
                 lastLoopStart = 0,
                 ninetyOne = 91,
-                instructionIndex = 0;
-            var memory = new int[ninetyOne];
+                instructionIndex = 0,
+                currentInstruction;
+            char[] memory = new char[ninetyOne];
 
             for(var instructions = program.toCharArray(); instructionIndex < instructions.length;) {
-                var currentInstruction = instructions[instructionIndex++];
+                currentInstruction = instructions[instructionIndex++];
 
                 helper = (skippedLoops > 0)
                     ? skippedLoops += (currentInstruction == ninetyOne)
@@ -20,9 +21,9 @@ public class Brainfuck {
                         : (currentInstruction > ninetyOne)
                             ? -1
                             : 0
-                    : (currentInstruction == 43)
+                    : (currentInstruction < 44)
                         ? ++memory[ptr]
-                        : (currentInstruction == 45)
+                        : (currentInstruction < 46)
                             ? --memory[ptr]
                             : (currentInstruction == 60)
                                 ? --ptr
@@ -40,7 +41,7 @@ public class Brainfuck {
 
                 System.out.print(
                     (currentInstruction == 46)
-                        ? (char) memory[ptr]
+                        ? memory[ptr]
                         : "");
             }
         }
