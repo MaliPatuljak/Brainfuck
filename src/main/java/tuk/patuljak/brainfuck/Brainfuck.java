@@ -1,47 +1,47 @@
 package tuk.patuljak.brainfuck;
 
 public class Brainfuck {
-    static void main(String[] programs) {
-        for(var program : programs) {
-            char ptr = 0,
-                helper = 0,
-                skippedLoops = 0,
-                lastLoopStart = 0,
-                ninetyOne = 91,
-                instructionIndex = 0,
-                currentInstruction;
+    static void main(String[] a) {
+        for(var b : a) {
+            char p = 0,
+                h = 0,
+                s = 0,
+                l = 0,
+                n = 91,
+                i = 0,
+                c;
 
             for(
-                char[]  memory = new char[ninetyOne],
-                        instructions = program.toCharArray();
-                instructionIndex < instructions.length;
-                currentInstruction = instructions[instructionIndex++],
-                helper = (skippedLoops > 0)
-                    ? skippedLoops += (currentInstruction == ninetyOne)
+                char[]  m = new char[n],
+                        y = b.toCharArray();
+                i < y.length;
+                c = y[i++],
+                h = (s > 0)
+                    ? s += (c == n)
                         ? 1
-                        : (currentInstruction > ninetyOne)
+                        : (c > n)
                             ? -1
                             : 0
-                    : (currentInstruction < 44)
-                        ? ++memory[ptr]
-                        : (currentInstruction < 46)
-                            ? --memory[ptr]
-                            : (currentInstruction == 60)
-                                ? --ptr
-                                : (currentInstruction == 62)
-                                    ? ++ptr
-                                    :(currentInstruction > ninetyOne)
-                                        ? (memory[ptr] != 0)
-                                            ? instructionIndex = memory[ninetyOne - lastLoopStart]
-                                            : --lastLoopStart
-                                        : (currentInstruction == ninetyOne)
-                                            ? (memory[ptr] != 0)
-                                                ? memory[ninetyOne - ++lastLoopStart] = instructionIndex
-                                                : ++skippedLoops
-                                            : helper,
+                    : (c < 44)
+                        ? ++m[p]
+                        : (c < 46)
+                            ? --m[p]
+                            : (c == 60)
+                                ? --p
+                                : (c == 62)
+                                    ? ++p
+                                    :(c > n)
+                                        ? (m[p] != 0)
+                                            ? i = m[n - l]
+                                            : --l
+                                        : (c == n)
+                                            ? (m[p] != 0)
+                                                ? m[n - ++l] = i
+                                                : ++s
+                                            : h,
                 System.out.print(
-                    (currentInstruction == 46)
-                        ? memory[ptr]
+                    (c == 46)
+                        ? m[p]
                         : "")
             );
         }
