@@ -10,11 +10,12 @@ public class Brainfuck {
                 ninetyOne = 91,
                 instructionIndex = 0,
                 currentInstruction;
-            char[] memory = new char[ninetyOne];
 
-            for(var instructions = program.toCharArray(); instructionIndex < instructions.length;) {
-                currentInstruction = instructions[instructionIndex++];
-
+            for(
+                char[]  memory = new char[ninetyOne],
+                        instructions = program.toCharArray();
+                instructionIndex < instructions.length;
+                currentInstruction = instructions[instructionIndex++],
                 helper = (skippedLoops > 0)
                     ? skippedLoops += (currentInstruction == ninetyOne)
                         ? 1
@@ -37,13 +38,12 @@ public class Brainfuck {
                                             ? (memory[ptr] != 0)
                                                 ? memory[ninetyOne - ++lastLoopStart] = instructionIndex
                                                 : ++skippedLoops
-                                            : helper;
-
+                                            : helper,
                 System.out.print(
                     (currentInstruction == 46)
                         ? memory[ptr]
-                        : "");
-            }
+                        : "")
+            );
         }
     }
 }
