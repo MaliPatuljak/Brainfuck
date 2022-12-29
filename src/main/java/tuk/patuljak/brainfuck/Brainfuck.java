@@ -9,10 +9,9 @@ public class Brainfuck {
                 lastLoopStart = 0,
                 instructionIndex = 0;
             var memory = new int[100];
-            var loopStarts = new int[10];
-            var instructions = program.toCharArray();
+            var loopStarts = memory.clone();
 
-            while(instructionIndex < instructions.length) {
+            for(var instructions = program.toCharArray(); instructionIndex < instructions.length;) {
                 var currentInstruction = instructions[instructionIndex++];
 
                 helper = (skippedLoops > 0)
